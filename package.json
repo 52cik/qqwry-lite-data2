@@ -1,0 +1,15 @@
+{
+  "name": "qqwry-lite-data",
+  "version": "2019.3.10",
+  "description": "qqwry.dat for qqwry-lite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "qqwry",
+    "qqwry.dat"
+  ],
+  "author": "楼教主 <fe.52cik@gmail.com> (http://www.52cik.com/)",
+  "license": "MIT"
+}
