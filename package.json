@@ -1,6 +1,6 @@
 {
   "name": "qqwry-lite-data",
-  "version": "2019.3.10",
+  "version": "2019.3.15",
   "description": "qqwry.dat for qqwry-lite",
   "main": "index.js",
   "files": [
