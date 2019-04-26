@@ -2,9 +2,12 @@ const fs = require('fs');
 const zlib = require('zlib');
 const { join } = require('path');
 const { Transform } = require('stream');
+const ora = require('ora');
 const got = require('got');
 const GBK = require('gbk.js');
 const { QQwry } = require('qqwry-lite');
+
+const spinner = ora();
 
 const headers = {
   'user-agent': 'Mozilla/3.0 (compatible; Indy Library)',
@@ -76,9 +79,13 @@ class QqwryDecode extends Transform {
 // 更新数据
 function update(lastInfo) {
   const tmpPath = `${datPath}.tmp`;
+  spinner.start('开始下载.');
   return new Promise((resolve, reject) => {
     got
       .stream(urls.qqwry, { headers })
+      .on('downloadProgress', progress => {
+        spinner.start(`正在下载: ${(progress.percent * 100).toFixed(2)}%`);
+      })
       .on('error', reject)
       .pipe(new QqwryDecode(lastInfo.key)) // 解码
       .on('error', reject)
@@ -97,9 +104,11 @@ function update(lastInfo) {
   const lastInfo = await getLastInfo();
   const latest = await isLatest(lastInfo);
   if (latest) {
-    console.log('已是最新版本:', lastInfo.version);
+    spinner.succeed(`已是最新版本 - ${lastInfo.version}`);
     return;
   }
   await update(lastInfo);
-  console.log('已更新到最新版本:', lastInfo.version);
-})();
+  spinner.succeed(`已更新到最新版本 - ${lastInfo.version}`);
+})().catch((err) => {
+  spinner.fail(`更新失败: ${err.message}`);
+});
