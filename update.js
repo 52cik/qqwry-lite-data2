@@ -79,12 +79,12 @@ class QqwryDecode extends Transform {
 // 更新数据
 function update(lastInfo) {
   const tmpPath = `${datPath}.tmp`;
-  spinner.start('开始下载.');
+  spinner.start('开始更新。');
   return new Promise((resolve, reject) => {
     got
       .stream(urls.qqwry, { headers })
       .on('downloadProgress', progress => {
-        spinner.start(`正在下载: ${(progress.percent * 100).toFixed(2)}%`);
+        spinner.start(`更新进度: ${(progress.percent * 100).toFixed(2)}%`);
       })
       .on('error', reject)
       .pipe(new QqwryDecode(lastInfo.key)) // 解码
