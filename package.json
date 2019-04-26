@@ -1,6 +1,6 @@
 {
   "name": "qqwry-lite-data",
-  "version": "2019.4.20",
+  "version": "2019.4.25",
   "description": "qqwry.dat for qqwry-lite",
   "main": "index.js",
   "files": [
@@ -28,6 +28,7 @@
   "devDependencies": {
     "gbk.js": "^0.2.4",
     "got": "^9.6.0",
+    "ora": "^3.4.0",
     "qqwry-lite": "^0.2.0"
   }
 }
